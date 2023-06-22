@@ -1,0 +1,27 @@
+h1::before {
+  content: "ABOUT";
+  position: absolute;
+  left: -30px;
+  bottom: 70px;
+  opacity: 0.03;
+}
+
+@media (min-width: 1024px) {
+  h1::before {
+    content: "ABOUT";
+    position: absolute;
+    left: 40px;
+    bottom: 60px;
+    opacity: 0.03;
+  }
+}
+
+.overtext::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  background-image: linear-gradient(to bottom, transparent, white);
+  bottom: 0;
+  left: 0;
+}

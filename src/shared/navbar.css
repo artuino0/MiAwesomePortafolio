@@ -1,0 +1,32 @@
+.menu > li > a::before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #2e86c1;
+  transition: width 0.15s ease-in-out;
+}
+
+.menu > li > a:hover::before {
+  width: 80%;
+  opacity: 1;
+}
+
+@media (min-width: 1024px) {
+  .hireme-btn::before {
+    content: "<hire> ";
+    opacity: 0.05;
+    font-size: 13px;
+    margin-left: 5px;
+    color: #fff !important;
+  }
+  .hireme-btn::after {
+    content: " </hire>";
+    opacity: 0.05;
+    font-size: 13px;
+    margin-right: 5px;
+    color: #fff !important;
+  }
+}
