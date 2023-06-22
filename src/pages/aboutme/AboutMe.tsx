@@ -20,8 +20,8 @@ const AboutMe = () => {
         </div>
         <div className="relative overtext">
           <p className="max-h-52 overflow-auto pb-5">
-            Hello! I'm <span className="text-primary font-bold">Arturo Muñoz</span>, a full-stack web developer with experience in Node, Python, and .NET as backends, and React, Angular, and VUEjs as front-ends. I've worked in the meat and fresh
-            produce sector, both in local sales and exports, and I'm now looking to expand my career in the tech industry.
+            <span className="text-primary font-bold">Full-stack</span> developer with experience in Node, Python, and .NET as backends, and React, Angular, and VUEjs as front-ends. I've worked in the meat and fresh produce sector, both in local sales
+            and exports, and I'm now looking to expand my career in the tech industry.
             <br />
             <br />
             I'm passionate about creating innovative and scalable solutions to complex problems, and I'm constantly seeking to learn new technologies and tools to improve my work. I consider myself a self-taught person, and I like to stay up to date
