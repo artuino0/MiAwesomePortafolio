@@ -24,8 +24,8 @@ const AboutMe = () => {
             and exports, and I'm now looking to expand my career in the tech industry.
             <br />
             <br />
-            I'm passionate about creating innovative and scalable solutions to complex problems, and I'm constantly seeking to learn new technologies and tools to improve my work. I consider myself a self-taught person, and I like to stay up to date
-            with the latest trends and developments in the programming world.
+            I'm passionate about creating innovative and scalable solutions to complex problems, and I'm constantly seeking to learn new technologies and tools to improve my skills. I consider myself a self-taught person, and I like to stay up to
+            date with the latest trends and developments in the programming world.
             <br />
             <br />
             I've also worked on software development projects for companies in different industries, which has allowed me to acquire skills in teamwork, effective communication, and project management. I'm focused on hard work, dedication, and
