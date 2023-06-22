@@ -4,12 +4,7 @@ import closeMenuSvg from "../assets/close-menu.svg";
 
 import "./navbar.css";
 
-interface NavbarProps {
-  easterEggClicks: number;
-  setEasterEggClicks: (clicks: number) => void;
-}
-
-const Navbar = ({ easterEggClicks, setEasterEggClicks }: NavbarProps) => {
+const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
 
@@ -28,13 +23,7 @@ const Navbar = ({ easterEggClicks, setEasterEggClicks }: NavbarProps) => {
   return (
     <nav className={` ${scrollMenuEffect} text-white fixed w-full z-50 transition-all duration-300 ease-in-out xl:px-40 md:px-15 sm:px-10 px-5`}>
       <div className="flex items-center justify-between">
-        <div
-          className="select-none text-2xl md:text-3xl font-bold hover:cursor-pointer"
-          onClick={() => {
-            setEasterEggClicks(easterEggClicks + 1);
-            console.log(easterEggClicks);
-          }}
-        >
+        <div className="select-none text-2xl md:text-3xl font-bold hover:cursor-pointer">
           {"<"}arturo<span className="text-primary">.</span>muñoz{"/>"}
         </div>
         <div className="text-white">

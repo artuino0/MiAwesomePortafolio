@@ -76,8 +76,8 @@ const Skills = () => {
           <span className="text-primary">Soft</span> <br /> Skills
         </h1>
         <div className="mt-6 mb-16 flex flex-wrap gap-6 md:pl-24 md:pr-12 justify-center md:justify-normal shadow-sm">
-          {skills.map((skill) => (
-            <span className="skill flex items-center justify-center px-2 py-2 text-center">
+          {skills.map((skill, i) => (
+            <span className="skill flex items-center justify-center px-2 py-2 text-center" key={i}>
               <div className="bg-white ml-1 mr-2" style={{ width: "6px", height: "6px" }}></div> {skill}
             </span>
           ))}

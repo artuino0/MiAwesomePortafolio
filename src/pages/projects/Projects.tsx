@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReact, faNodeJs, faGithub, faPython, faAngular, faVuejs, faCss3, faBootstrap, faJs } from "@fortawesome/free-brands-svg-icons";
+import { faReact, faNodeJs, faGithub, faPython, faAngular, faVuejs, faCss3, faBootstrap, faJs, faHtml5 } from "@fortawesome/free-brands-svg-icons";
 import { projects as myProjects } from "../../data/data";
 import www from "../../assets/svgs/www.svg";
 import github from "../../assets/svgs/github.svg";
@@ -34,31 +34,39 @@ const Projects = () => {
   const getIconForTag = (tag: string) => {
     switch (tag) {
       case "React":
-        return <FontAwesomeIcon className="text-blue-600" icon={faReact} />;
+        return <FontAwesomeIcon className="text-blue-600 text-2xl" icon={faReact} />;
       case "Bootstrap":
-        return <FontAwesomeIcon className="text-purple-700" icon={faBootstrap} />;
+        return <FontAwesomeIcon className="text-purple-700 text-2xl" icon={faBootstrap} />;
       case "Javascript":
-        return <FontAwesomeIcon className="text-yellow-500" icon={faJs} />;
+        return <FontAwesomeIcon className="text-yellow-500 text-2xl" icon={faJs} />;
+      case "HTML":
+        return <FontAwesomeIcon className="text-orange-500 text-2xl" icon={faHtml5} />;
       case "CSS":
-        return <FontAwesomeIcon className="text-blue-500" icon={faCss3} />;
+        return <FontAwesomeIcon className="text-blue-500 text-2xl" icon={faCss3} />;
       case "NodeJS":
-        return <FontAwesomeIcon className="text-green-700" icon={faNodeJs} />;
+        return <FontAwesomeIcon className="text-green-700 text-2xl" icon={faNodeJs} />;
       case "Tailwind":
         return <img src={tailwind} alt="tailwind-brand" className="w-8" />;
       case "MongoDB":
-        return <img src={mongo} alt="mongodb-brand" className="w-8" />;
+        return <img src={mongo} alt="mongodb-brand" className="w-7" />;
       case "Typescript":
-        return <img src={typescript} alt="typescript-brand" className="w-7" />;
+        return <img src={typescript} alt="typescript-brand" className="w-7 -mt-[5px]" />;
       case "MSSQL":
         return <img src={sql} alt="sql-brand" className="w-8" />;
-      case "Firebase":
-        return <img src={firebase} alt="firebase-brand" className="w-7 absolute -ml-4" />;
+      case "Express":
+        return <p className="bg-gray-400 text-xs rounded-md px-2 py-1">Express</p>;
+      case "VB.net":
+        return <img src={"https://www.portalgsti.com.br/media/uploads/fernandopalma/vb-net.png"} alt="vbnet-brand" className="w-7" />;
+      case "MySQL":
+        return <img src={"https://www.freepnglogos.com/uploads/logo-mysql-png/logo-mysql-mysql-logo-png-images-are-download-crazypng-21.png"} alt="mysql-brand" className="w-7" />;
+      case "Excel":
+        return <img src={"https://1000marcas.net/wp-content/uploads/2020/12/Microsoft-Excel-Logo-2013.png"} alt="mysql-brand" className="w-7" />;
       case "Angular":
-        return <FontAwesomeIcon className="text-red-600" icon={faAngular} />;
+        return <FontAwesomeIcon className="text-red-600 text-2xl" icon={faAngular} />;
       case "VueJS":
-        return <FontAwesomeIcon className="text-green-600" icon={faVuejs} />;
+        return <FontAwesomeIcon className="text-green-600 text-2xl" icon={faVuejs} />;
       case "Python":
-        return <FontAwesomeIcon className="text-yellow-600" icon={faPython} />;
+        return <FontAwesomeIcon className="text-yellow-600 text-2xl" icon={faPython} />;
       default:
         return null;
     }
@@ -68,8 +76,8 @@ const Projects = () => {
     <div id="porfolio" className="bg-white text-dark overflow-hidden relative lg:flex xl:py-24 py-12 xl:px-40 w-full items-center justify-between md:px-20 sm:px-10 px-5">
       <div className="flex flex-col gap-6 w-full">
         <h1 className="text-5xl font-bold">Projects</h1>
-        <p className="text-lg">Here are some of my projects:</p>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <hr />
+        <div className="w-full grid grid-cols-1 lg:grid-cols-4 gap-4 lg:mt-4">
           {projects.map((project, index) => (
             <div key={index} className="text-center cursor-pointer relative" onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
               <div className="bg-gray-200 h-64 w-full overflow-hidden" style={{ backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -90,9 +98,9 @@ const Projects = () => {
                     </div>
                     <h2 className="text-2xl font-bold bg-opacity-85">{project.title}</h2>
                     <p className="bg-opacity-85">{project.description}</p>
-                    <div className="flex text-2xl gap-3">
-                      {project.tags.map((tag) => (
-                        <p>{getIconForTag(tag)}</p>
+                    <div className="flex gap-3 mt-1 h-7 items-center">
+                      {project.tags.map((tag, i) => (
+                        <span key={i}>{getIconForTag(tag)}</span>
                       ))}
                     </div>
                   </div>

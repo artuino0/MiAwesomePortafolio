@@ -10,10 +10,9 @@ import Projects from "./pages/projects/Projects";
 import ContactForm from "./pages/contactme/ContactForm";
 
 function App() {
-  const [easterEggClicks, setEasterEggClicks] = useState(0);
   return (
     <div className="App font-grotesk relative">
-      <Navbar setEasterEggClicks={setEasterEggClicks} easterEggClicks={easterEggClicks} />
+      <Navbar />
       <Presentation />
       <AboutMe />
       <Skills />
@@ -21,7 +20,6 @@ function App() {
       <ContactForm />
       {/* <Navbar />
       <div className="bg-light mx-40" style={{ height: "1px" }}></div> */}
-      {easterEggClicks >= 5 ? <Doge setEasterEggClicks={setEasterEggClicks} /> : <></>}
     </div>
   );
 }
