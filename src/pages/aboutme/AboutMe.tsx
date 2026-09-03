@@ -1,42 +1,51 @@
 import cv from "../../assets/doc/Arturo_Munoz_CV.pdf";
-
-import "./about.css";
+import { useI18n } from "../../i18n/I18nContext";
 
 const AboutMe = () => {
-  return (
-    <section id="aboutme" className="bg-white text-dark overflow-hidden relative lg:flex xl:py-24 py-12 xl:px-40 w-full items-center justify-between md:px-20 sm:px-10 px-5">
-      <div className="flex flex-col md:flex-row justify-between md:gap-52 gap-12 text-center md:text-left">
-        <h1 className="hidden md:block w-fit z-10 realtive text-right lg:text-8xl text-5xl font-black">
-          ABOUT
-          <br />
-          <span className="text-primary">ME</span>
-        </h1>
+  const { t } = useI18n();
 
-        <div className="md:hidden text-center z-10 realtive lg:text-8xl text-5xl font-black">
-          <p>
-            ABOUT
-            <span className="text-primary"> ME</span>
-          </p>
+  const meta = [
+    { k: t.about.roleK, v: t.about.roleV },
+    { k: t.about.backendK, v: t.about.backendV },
+    { k: t.about.frontendK, v: t.about.frontendV },
+    { k: t.about.locationK, v: t.about.locationV },
+    { k: t.about.industryK, v: t.about.industryV },
+  ];
+
+  return (
+    <section id="about" className="section-anchor bg-surface">
+      <div className="mx-auto max-w-content px-6 py-24 md:px-10 lg:px-16 lg:py-32">
+        <div className="flex items-baseline gap-4">
+          <span className="font-mono text-sm text-primary">{t.about.index}</span>
+          <h2 className="font-heading text-5xl text-fg lg:text-6xl">{t.about.title}</h2>
         </div>
-        <div className="relative overtext">
-          <p className="max-h-52 overflow-auto pb-5">
-            <span className="text-primary font-bold">Full-stack</span> developer with experience in Node, Python, and .NET as backends, and React, Angular, and VUEjs as front-ends. I've worked in the meat and fresh produce sector, both in local sales
-            and exports, and I'm now looking to expand my career in the tech industry.
-            <br />
-            <br />
-            I'm passionate about creating innovative and scalable solutions to complex problems, and I'm constantly seeking to learn new technologies and tools to improve my skills. I consider myself a self-taught person, and I like to stay up to
-            date with the latest trends and developments in the programming world.
-            <br />
-            <br />
-            I've also worked on software development projects for companies in different industries, which has allowed me to acquire skills in teamwork, effective communication, and project management. I'm focused on hard work, dedication, and
-            creativity to achieve high-quality results.
-          </p>
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px]">
+          <div className="space-y-6 font-body text-[15px] leading-[1.7] text-muted md:text-base">
+            <p>{t.about.p1}</p>
+            <p>{t.about.p2}</p>
+            <p>{t.about.p3}</p>
+          </div>
+
+          <div className="flex flex-col">
+            <dl className="divide-y divide-border border-y border-border">
+              {meta.map((m) => (
+                <div key={m.k} className="flex items-center justify-between gap-4 py-3">
+                  <dt className="font-mono text-xs tracking-widest text-muted">{m.k}</dt>
+                  <dd className="text-right font-mono text-xs text-fg">{m.v}</dd>
+                </div>
+              ))}
+            </dl>
+            <a
+              href={cv}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 rounded-sm border border-border px-6 py-3 text-center font-mono text-xs tracking-widest text-fg transition-colors hover:border-primary hover:text-primary"
+            >
+              {t.about.cv}
+            </a>
+          </div>
         </div>
-      </div>
-      <div className="text-center mt-6 md:hidden">
-        <a className="text-center mx-auto border-2 border-gray-700 px-3 py-2 rounded-lg" href={cv}>
-          Download CV
-        </a>
       </div>
     </section>
   );

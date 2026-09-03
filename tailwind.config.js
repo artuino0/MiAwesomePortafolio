@@ -2,27 +2,35 @@
 export default {
   content: ["index.html", "./src/**/*.tsx"],
   theme: {
-    backgroundImage: {
-      "bg-img": "url('/images/bg.png')",
-    },
     screens: {
       xs: "300px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",
-      "2xl": "1536px", // Nueva dimensión personalizada
+      "2xl": "1536px",
     },
     extend: {
       colors: {
-        primary: "#2E86C1",
-        dark: "#141414",
-        medium: "#242424",
-        light: "#979797",
-        white: "#FFFFFF",
+        bg: "#000000",
+        surface: "#0B0B0B",
+        fg: "#FFFFFF",
+        muted: "#8A8A8A",
+        primary: "#2D7DFF",
+        "primary-soft": "#9DC4FF",
+        border: "#242424",
       },
       fontFamily: {
-        grotesk: ["Space Grotesk", "sans-serif"],
+        heading: ["Anton", "Impact", "sans-serif"],
+        body: ["Inter", "system-ui", "sans-serif"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
+      },
+      borderRadius: {
+        sm: "4px",
+        lg: "8px",
+      },
+      maxWidth: {
+        content: "1216px",
       },
     },
   },

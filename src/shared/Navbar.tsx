@@ -1,96 +1,94 @@
-import React, { useEffect, useState } from "react";
-import menuSvg from "../assets/menu.svg";
-import closeMenuSvg from "../assets/close-menu.svg";
+import { useEffect, useState } from "react";
+import { useI18n } from "../i18n/I18nContext";
+import LanguageToggle from "../i18n/LanguageToggle";
 
-import "./navbar.css";
+const LINKS = [
+  { key: "home" as const, href: "#home" },
+  { key: "about" as const, href: "#about" },
+  { key: "skills" as const, href: "#skills" },
+  { key: "work" as const, href: "#work" },
+];
 
 const Navbar = () => {
-  const [scrolling, setScrolling] = useState(false);
-  const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
+  const { t } = useI18n();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolling(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollMenuEffect = `${scrolling || isMobileMenuActive ? "bg-medium py-3 xs:shadow-xl md:shadow-none" : "bg-transparent 2xl:py-9 py-6"} `;
+  const close = () => setMenuOpen(false);
 
   return (
-    <nav className={` ${scrollMenuEffect} text-white fixed w-full z-50 transition-all duration-300 ease-in-out xl:px-40 md:px-15 sm:px-10 px-5`}>
-      <div className="flex items-center justify-between">
-        <div className="select-none text-2xl md:text-3xl font-bold hover:cursor-pointer">
-          {"<"}arturo<span className="text-primary">.</span>muñoz{"/>"}
-        </div>
-        <div className="text-white">
-          <div className="hidden md:block">
-            <MenuItems />
-          </div>
-          <div className="md:hidden flex items-center justify-center">
-            <button className="text-2xl" onClick={() => setIsMobileMenuActive(!isMobileMenuActive)}>
-              {isMobileMenuActive ? <img src={closeMenuSvg} alt="close menu" className="h-6 w-6" /> : <img src={menuSvg} alt="menu" className="h-7 w-7" />}
-            </button>
-          </div>
-        </div>
-      </div>
-      {isMobileMenuActive && <MobileMenu setIsMobileMenuActive={setIsMobileMenuActive} />}
-    </nav>
-  );
-};
-
-const MenuItems = ({ setIsMobileMenuActive }: { setIsMobileMenuActive?: any }) => {
-  const menuItems = [
-    { title: "HOME", link: "home" },
-    { title: "ABOUT ME", link: "aboutme" },
-    { title: "SKILLS", link: "skills" },
-    { title: "PORTFOLIO", link: "porfolio" },
-  ];
-  return (
-    <ul className="menu flex flex-col md:flex-row gap-4 lg:gap-10 items-center">
-      {menuItems.map((item, i) => (
-        <li key={i} className="text-white relative hover:text-primary hover:cursor-pointer transition-all duration-300 ease-in-out">
-          <a href={`#${item.link}`} onClick={() => setIsMobileMenuActive(false)}>
-            {item.title}
-          </a>
-        </li>
-      ))}
-      <li>
-        <HireMeButton />
-      </li>
-    </ul>
-  );
-};
-
-const HireMeButton = (props: { additionalClassNames?: string }) => {
-  const scroll = () => {
-    const targetElement = document.getElementById("contactme");
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-  return (
-    <button
-      onClick={scroll}
-      type="button"
-      className={`hover:text-primary hover:border-primary hireme-btn px-6 flex justify-center items-center gap-3 border-2 w-full rounded-lg 
-                 transition-all duration-150 ease-in-out py-1 ${props.additionalClassNames || ""}`}
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        scrolled || menuOpen ? "border-border bg-black/90 backdrop-blur" : "border-transparent bg-transparent"
+      }`}
     >
-      CONTACT ME
-    </button>
-  );
-};
+      <div className="mx-auto flex max-w-content items-center justify-between px-6 py-4 md:px-10 lg:px-16">
+        <a href="#home" onClick={close} className="font-mono text-lg text-fg md:text-xl">
+          {"<arturo.muñoz/>"}
+        </a>
 
-const MobileMenu = ({ setIsMobileMenuActive }: { setIsMobileMenuActive: any }) => {
-  return (
-    <div className="mobile-menu md:hidden text-center w-full transition-all duration-300">
-      <ul className="flex flex-col md:flex-row gap-6 mt-6 mb-3 ">
-        <MenuItems setIsMobileMenuActive={setIsMobileMenuActive} />
-      </ul>
-    </div>
+        <div className="hidden items-center gap-8 lg:flex">
+          {LINKS.map((l) => (
+            <a
+              key={l.key}
+              href={l.href}
+              className="font-mono text-[13px] tracking-widest text-muted transition-colors hover:text-fg"
+            >
+              {t.nav[l.key]}
+            </a>
+          ))}
+          <LanguageToggle />
+          <a
+            href="#contact"
+            className="rounded-sm bg-primary px-5 py-2 font-mono text-[13px] tracking-widest text-bg transition-opacity hover:opacity-90"
+          >
+            {t.nav.contact}
+          </a>
+        </div>
+
+        <button
+          type="button"
+          className="flex h-9 w-9 items-center justify-center text-fg lg:hidden"
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <i className={`bi ${menuOpen ? "bi-x-lg" : "bi-list"} text-2xl`} />
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="border-t border-border bg-black/95 lg:hidden">
+          <div className="mx-auto flex max-w-content flex-col gap-1 px-6 py-4">
+            {LINKS.map((l) => (
+              <a
+                key={l.key}
+                href={l.href}
+                onClick={close}
+                className="py-2 font-mono text-sm tracking-widest text-muted transition-colors hover:text-fg"
+              >
+                {t.nav[l.key]}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={close}
+              className="mt-2 rounded-sm bg-primary px-5 py-2 text-center font-mono text-[13px] tracking-widest text-bg"
+            >
+              {t.nav.contact}
+            </a>
+            <LanguageToggle className="mt-3" />
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 

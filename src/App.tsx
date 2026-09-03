@@ -1,26 +1,27 @@
-import { useState } from "react";
 import Navbar from "./shared/Navbar";
-
-import "./App.css";
-import Doge from "./shared/Doge";
+import Footer from "./shared/Footer";
 import Presentation from "./pages/presentation/Presentation";
 import AboutMe from "./pages/aboutme/AboutMe";
-import Skills from "./pages/skills/MySkills";
+import MySkills from "./pages/skills/MySkills";
 import Projects from "./pages/projects/Projects";
 import ContactForm from "./pages/contactme/ContactForm";
+import { I18nProvider } from "./i18n/I18nContext";
 
 function App() {
   return (
-    <div className="App font-grotesk relative">
-      <Navbar />
-      <Presentation />
-      <AboutMe />
-      <Skills />
-      <Projects />
-      <ContactForm />
-      {/* <Navbar />
-      <div className="bg-light mx-40" style={{ height: "1px" }}></div> */}
-    </div>
+    <I18nProvider>
+      <div className="relative min-h-screen bg-bg font-body text-fg">
+        <Navbar />
+        <main>
+          <Presentation />
+          <AboutMe />
+          <MySkills />
+          <Projects />
+          <ContactForm />
+        </main>
+        <Footer />
+      </div>
+    </I18nProvider>
   );
 }
 

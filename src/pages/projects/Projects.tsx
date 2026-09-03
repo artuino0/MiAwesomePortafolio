@@ -1,121 +1,71 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReact, faNodeJs, faGithub, faPython, faAngular, faVuejs, faCss3, faBootstrap, faJs, faHtml5 } from "@fortawesome/free-brands-svg-icons";
-import { projects as myProjects } from "../../data/data";
-import www from "../../assets/svgs/www.svg";
-import github from "../../assets/svgs/github.svg";
-import tailwind from "../../assets/svgs/tailwind.svg";
-import typescript from "../../assets/svgs/typescript.svg";
-import sql from "../../assets/svgs/sql.svg";
-import firebase from "../../assets/svgs/firebase.svg";
-import mongo from "../../assets/svgs/mongodb.svg";
+import { projects, GITHUB_PROFILE, type Project } from "../../data/data";
+import { useI18n } from "../../i18n/I18nContext";
 
-interface Project {
-  title: string;
-  image: string;
-  description: string;
-  link: string;
-  github: string;
-  tags: string[];
-}
-
-const Projects = () => {
-  const [projects, setProjects] = useState<Project[]>(myProjects);
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-
-  const handleMouseEnter = (index: number) => {
-    setHoveredProject(index);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredProject(null);
-  };
-
-  const getIconForTag = (tag: string) => {
-    switch (tag) {
-      case "React":
-        return <FontAwesomeIcon className="text-blue-600 text-2xl" icon={faReact} />;
-      case "Bootstrap":
-        return <FontAwesomeIcon className="text-purple-700 text-2xl" icon={faBootstrap} />;
-      case "Javascript":
-        return <FontAwesomeIcon className="text-yellow-500 text-2xl" icon={faJs} />;
-      case "HTML":
-        return <FontAwesomeIcon className="text-orange-500 text-2xl" icon={faHtml5} />;
-      case "CSS":
-        return <FontAwesomeIcon className="text-blue-500 text-2xl" icon={faCss3} />;
-      case "NodeJS":
-        return <FontAwesomeIcon className="text-green-700 text-2xl" icon={faNodeJs} />;
-      case "Tailwind":
-        return <img src={tailwind} alt="tailwind-brand" className="w-8" />;
-      case "MongoDB":
-        return <img src={mongo} alt="mongodb-brand" className="w-7" />;
-      case "Typescript":
-        return <img src={typescript} alt="typescript-brand" className="w-7 -mt-[5px]" />;
-      case "MSSQL":
-        return <img src={sql} alt="sql-brand" className="w-8" />;
-      case "Express":
-        return <p className="bg-gray-400 text-xs rounded-md px-2 py-1">Express</p>;
-      case "VB.net":
-        return <img src={"https://www.portalgsti.com.br/media/uploads/fernandopalma/vb-net.png"} alt="vbnet-brand" className="w-7" />;
-      case "MySQL":
-        return <img src={"https://www.freepnglogos.com/uploads/logo-mysql-png/logo-mysql-mysql-logo-png-images-are-download-crazypng-21.png"} alt="mysql-brand" className="w-7" />;
-      case "Excel":
-        return <img src={"https://1000marcas.net/wp-content/uploads/2020/12/Microsoft-Excel-Logo-2013.png"} alt="mysql-brand" className="w-7" />;
-      case "Angular":
-        return <FontAwesomeIcon className="text-red-600 text-2xl" icon={faAngular} />;
-      case "VueJS":
-        return <FontAwesomeIcon className="text-green-600 text-2xl" icon={faVuejs} />;
-      case "Python":
-        return <FontAwesomeIcon className="text-yellow-600 text-2xl" icon={faPython} />;
-      default:
-        return null;
-    }
-  };
+const ProjectCard = ({ project }: { project: Project }) => {
+  const { t } = useI18n();
+  const meta = t.work.projects[project.id as keyof typeof t.work.projects];
+  const href = project.link || project.github || undefined;
 
   return (
-    <div id="porfolio" className="bg-white text-dark overflow-hidden relative lg:flex xl:py-24 py-12 xl:px-40 w-full items-center justify-between md:px-20 sm:px-10 px-5">
-      <div className="flex flex-col gap-6 w-full">
-        <h1 className="text-5xl font-bold">Projects</h1>
-        <hr />
-        <div className="w-full grid grid-cols-1 lg:grid-cols-4 gap-4 lg:mt-4">
-          {projects.map((project, index) => (
-            <div key={index} className="text-center cursor-pointer relative" onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
-              <div className="bg-gray-200 h-64 w-full overflow-hidden" style={{ backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-                <img src={project.image} className="w-full h-full object-cover" alt="" />
-                {hoveredProject === index && (
-                  <div className="absolute top-0 left-0 w-full h-full bg-opacity-90 bg-gray-800 text-white flex flex-col items-center justify-center p-4 transition-all duration-300 ease-in-out">
-                    <div className="absolute top-3 right-3 flex">
-                      {project.link && (
-                        <a href={project.link} className="text-blue-500" target="_blank" rel="noopener noreferrer">
-                          <img src={www} className="w-9" alt="" />
-                        </a>
-                      )}
-                      {project.github && (
-                        <a href={project.github} className="text-blue-500 ml-4" target="_blank" rel="noopener noreferrer">
-                          <img src={github} className="w-9" alt="" />
-                        </a>
-                      )}
-                    </div>
-                    <h2 className="text-2xl font-bold bg-opacity-85">{project.title}</h2>
-                    <p className="bg-opacity-85">{project.description}</p>
-                    <div className="flex gap-3 mt-1 h-7 items-center">
-                      {project.tags.map((tag, i) => (
-                        <span key={i}>{getIconForTag(tag)}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {hoveredProject !== index && (
-                  <div className="absolute bottom-0 left-0 w-full h-12 bg-gray-800 bg-opacity-90 text-white flex items-center justify-center">
-                    <h2 className="text-lg font-bold bg-opacity-85">{project.title}</h2>
-                  </div>
-                )}
-              </div>
-            </div>
+    <a
+      href={href}
+      target={href ? "_blank" : undefined}
+      rel={href ? "noreferrer" : undefined}
+      className={`group flex flex-col overflow-hidden rounded-lg border border-border bg-bg transition-colors ${
+        href ? "hover:border-primary" : "cursor-default"
+      }`}
+    >
+      <div className="flex h-32 items-end bg-gradient-to-br from-[#0C1E38] to-black p-3.5">
+        <span className="font-heading text-xs tracking-wider text-primary-soft">{project.stack}</span>
+      </div>
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <h3 className="font-heading text-xl leading-tight text-fg">{meta.title}</h3>
+        <p className="flex-1 font-body text-sm leading-relaxed text-muted">{meta.desc}</p>
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span key={tag} className="rounded-sm border border-border px-2 py-0.5 font-mono text-[11px] text-muted">
+              {tag}
+            </span>
           ))}
         </div>
       </div>
-    </div>
+    </a>
+  );
+};
+
+const Projects = () => {
+  const { t } = useI18n();
+
+  return (
+    <section id="work" className="section-anchor bg-surface">
+      <div className="mx-auto max-w-content px-6 py-24 md:px-10 lg:px-16 lg:py-32">
+        <div className="flex flex-wrap items-baseline justify-between gap-4">
+          <div className="flex items-baseline gap-4">
+            <span className="font-mono text-sm text-primary">{t.work.index}</span>
+            <h2 className="font-heading text-5xl text-fg lg:text-6xl">{t.work.title}</h2>
+          </div>
+          <span className="font-mono text-xs tracking-widest text-muted">{t.work.count}</span>
+        </div>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <a
+            href={GITHUB_PROFILE}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-3 rounded-sm border border-border px-7 py-3.5 font-mono text-sm tracking-wide text-fg transition-colors hover:border-primary hover:text-primary"
+          >
+            {t.work.seeAll}
+            <span aria-hidden>→</span>
+          </a>
+        </div>
+      </div>
+    </section>
   );
 };
 
